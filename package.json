@@ -1,7 +1,7 @@
 {
-  "name": "@relayin/adonis-error-handler",
+  "name": "@relayin/error-handler",
   "version": "1.0.0",
-  "description": "AdonisJs error handler for API servers",
+  "description": "Error handler for Relay micro services written in AdonisJs",
   "main": "build/providers/ErrorHandlerProvider",
   "files": [
     "build/src",
