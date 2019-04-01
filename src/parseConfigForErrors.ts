@@ -8,6 +8,7 @@
  */
 
 import { ErrorsConfig } from './Contracts'
+const requiredKeys = ['errorCodes', 'exceptionCodes', 'codesBucket']
 
 /**
  * Parses error codes config for errors and report them early
@@ -15,6 +16,15 @@ import { ErrorsConfig } from './Contracts'
  */
 export function parseConfigForErrors (config: ErrorsConfig) {
   const bucketMax = config.codesBucket * 2
+
+  /**
+   * Ensure all keys exists inside config
+   */
+  requiredKeys.forEach((key) => {
+    if (!config[key]) {
+      throw new Error(`Make sure to export ${key} from config/errorCodes.ts file`)
+    }
+  })
 
   Object.keys(config.errorCodes).forEach((code) => {
     if (Number(code) < config.codesBucket) {

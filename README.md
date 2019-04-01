@@ -1,26 +1,25 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-## Table of contents
-
-- [@relayin/error-handler](#relayinerror-handler)
-  - [Types of errors/exceptions](#types-of-errorsexceptions)
-    - [Validation errors](#validation-errors)
-    - [Flow exceptions](#flow-exceptions)
-    - [Unexcepted exceptions](#unexcepted-exceptions)
-  - [How do we handle them?](#how-do-we-handle-them)
-  - [Shape of error objects](#shape-of-error-objects)
-  - [Usage](#usage)
-  - [Defining codes for exceptions](#defining-codes-for-exceptions)
-  - [Change log](#change-log)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # @relayin/error-handler
 > Errors management at relay
 
 ![](https://img.shields.io/badge/Uses-Typescript-294E80.svg?style=flat-square&colorA=ddd)
 
 Relay error handler is a package used by Node.js micro services to return consistent error nodes from the API response.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of contents
+
+- [Types of errors/exceptions](#types-of-errorsexceptions)
+  - [Validation errors](#validation-errors)
+  - [Flow exceptions](#flow-exceptions)
+  - [Unexcepted exceptions](#unexcepted-exceptions)
+- [How do we handle them?](#how-do-we-handle-them)
+- [Shape of error objects](#shape-of-error-objects)
+- [Usage](#usage)
+- [Defining codes for exceptions](#defining-codes-for-exceptions)
+- [Change log](#change-log)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Types of errors/exceptions
 

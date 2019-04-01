@@ -24,3 +24,11 @@ export type ErrorsConfig = {
 
   codesBucket: number,
 }
+
+export type JSONAPIErrorNode = {
+  code: number,
+  title: string,
+  source: {
+    pointer: string,
+  },
+}
