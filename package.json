@@ -2,7 +2,11 @@
   "name": "@relayin/adonis-error-handler",
   "version": "1.0.0",
   "description": "AdonisJs error handler for API servers",
-  "main": "index.js",
+  "main": "build/providers/ErrorHandlerProvider",
+  "files": [
+    "build/src",
+    "build/providers"
+  ],
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
     "pretest": "npm run lint",

@@ -7,7 +7,7 @@
       true,
       "check-format",
       "allow-pascal-case",
-      "allow-leading-underscore",
+      "allow-leading-underscore"
     ]
   }
 }
