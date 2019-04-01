@@ -1,6 +1,7 @@
 # @relayin/error-handler
 > Errors management at relay
 
+![](https://img.shields.io/circleci/project/github/RelayIN/error-handler/develop.svg?style=flat-square)
 ![](https://img.shields.io/badge/Uses-Typescript-294E80.svg?style=flat-square&colorA=ddd)
 
 Relay error handler is a package used by Node.js micro services to return consistent error nodes from the API response.
