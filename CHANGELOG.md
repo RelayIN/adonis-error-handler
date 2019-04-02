@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/RelayIN/error-handler/compare/1.0.1...1.0.2) (2019-04-02)
+
+
+### Features
+
+* export interfaces and types ([6f4d725](https://github.com/RelayIN/error-handler/commit/6f4d725))
+
+
+
 ## [1.0.1](https://github.com/RelayIN/error-handler/compare/v1.0.0...v1.0.1) (2019-04-01)
 
 
