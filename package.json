@@ -1,11 +1,13 @@
 {
   "name": "@relayin/error-handler",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Error handler for Relay micro services written in AdonisJs",
   "main": "build/providers/ErrorHandlerProvider",
   "files": [
     "build/src",
-    "build/providers"
+    "build/providers",
+    "build/index.js",
+    "build/index.d.ts"
   ],
   "scripts": {
     "mrm": "mrm --preset=@adonisjs/mrm-preset",
