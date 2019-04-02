@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ErrorsConfig } from '../Contracts'
+import { ErrorsConfig, ErrorHandlerContract } from '../Contracts'
 import { validationCodes } from '../validationCodes'
 import { ErrorFormatter } from '../ErrorFormatter'
 
@@ -17,7 +17,7 @@ import { ErrorFormatter } from '../ErrorFormatter'
  */
 const REQUIRED_MEMBERS = ['errorCodes', 'exceptionCodes', 'codesBucket']
 
-export class ErrorHandler {
+export class ErrorHandler implements ErrorHandlerContract {
   private _exceptionsRef: { [key: string]: string } = {}
 
   constructor (private _config: ErrorsConfig) {
@@ -127,7 +127,7 @@ export class ErrorHandler {
    * Returns exception handler for handling HTTP exceptions and making
    * consistent API response
    */
-  public handleException (error, { response }) {
+  public async handleException (error, { response }) {
     const code = error.code || 'E_RUNTIME_EXCEPTION'
     const status = error.status || 500
 
