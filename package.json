@@ -16,7 +16,9 @@
     "compile": "npm run lint && npm run clean && tsc",
     "build": "npm run compile",
     "commit": "git-cz",
-    "lint": "tslint --project tsconfig.json"
+    "lint": "tslint --project tsconfig.json",
+    "release:start": "start(){ git flow release start $1; };start",
+    "release:end": "end(){ git checkout master && git merge --no-ff --no-verify release/$1 && git tag -a $1 && git checkout develop && git merge --no-ff --no-verify release/$1 && git branch -d release/$1; };end"
   },
   "keywords": [
     "adonisjs"
