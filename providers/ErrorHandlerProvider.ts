@@ -7,34 +7,43 @@
  * file that was distributed with this source code.
  */
 
-import { ExceptionHandler } from '../src/ExceptionHandler'
-import { parseConfigForErrors } from '../src/parseConfigForErrors'
-import { ErrorFormatter } from '../src/ErrorFormatter'
+import { ErrorHandler } from '../src/ErrorHandler'
 
 export default class ErrorHandlerProvider {
   constructor (public container) {}
 
+  /**
+   * Register `Relay/ErrorHandler` to the container. We don't
+   * need a new instance for handler everytime, so binding
+   * a singleton is the way to go
+   */
+  public register () {
+    this.container.singleton('Relay/ErrorHandler', () => {
+      const Config = this.container.use('Adonis/Src/Config')
+      return new ErrorHandler(Config.get('errorCodes'))
+    })
+  }
+
   public async boot () {
-    const Config = this.container.use('Adonis/Src/Config')
+    const handler = this.container.use('Relay/ErrorHandler')
     const Server = this.container.use('Adonis/Src/Server')
 
     /**
-     * Bind exception handler
+     * Handle exceptions
      */
-    const handler = new ExceptionHandler(Config.get('errorCodes'))
-    Server.onError(handler.handle.bind(handler))
+    Server.onError(handler.handleException.bind(handler))
 
     /**
-     * Parse config to ensure it's valid
+     * Parse config and report errors (if any)
      */
-    parseConfigForErrors(Config.get('errorCodes'))
+    handler.parse()
 
     /**
      * Add formatter to indicative
      */
     try {
       const { configure } = require('indicative')
-      configure({ formatter: ErrorFormatter })
+      configure({ formatter: handler.getFormatter() })
     } catch (error) {
       // Indicative isn't installed, so ignore the error
     }

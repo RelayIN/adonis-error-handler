@@ -8,7 +8,7 @@
  */
 
 import * as test from 'japa'
-import { ExceptionHandler } from '../src/ExceptionHandler'
+import { ErrorHandler } from '../src/ErrorHandler'
 
 test.group('ExceptionHandler', () => {
   test('build error object from config', async (assert) => {
@@ -40,8 +40,8 @@ test.group('ExceptionHandler', () => {
       },
     }
 
-    const handler = new ExceptionHandler(config)
-    await handler.handle(error, { response })
+    const handler = new ErrorHandler(config)
+    await handler.handleException(error, { response })
 
     assert.deepEqual(response._state, {
       code: 500,
@@ -82,8 +82,8 @@ test.group('ExceptionHandler', () => {
       },
     }
 
-    const handler = new ExceptionHandler(config)
-    await handler.handle(error, { response })
+    const handler = new ErrorHandler(config)
+    await handler.handleException(error, { response })
 
     assert.deepEqual(response._state, {
       code: 400,
@@ -120,14 +120,14 @@ test.group('ExceptionHandler', () => {
       },
     }
 
-    const handler = new ExceptionHandler(config)
-    await handler.handle(error, { response })
+    const handler = new ErrorHandler(config)
+    await handler.handleException(error, { response })
 
     assert.deepEqual(response._state, {
       code: 400,
       body: {
         title: 'Unable to process request',
-        code: 10000,
+        code: 1000,
       },
     })
   })
