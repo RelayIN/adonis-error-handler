@@ -32,3 +32,9 @@ export type JSONAPIErrorNode = {
     pointer: string,
   },
 }
+
+export interface ErrorHandlerContract {
+  parse (): void,
+  exceptions <T extends keyof any> (): { [K in T]: K },
+  handleException (error, { response }): Promise<void>,
+}
