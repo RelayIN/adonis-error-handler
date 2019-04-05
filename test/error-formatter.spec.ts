@@ -15,27 +15,31 @@ test.group('Error formatter', () => {
     const formatter = new ErrorFormatter()
     formatter.addError('Invalid value', 'username', 'required', [])
 
-    assert.deepEqual(formatter.toJSON(), [{
-      title: 'Invalid value',
-      code: 1026,
-      source: { pointer: 'username' },
-      meta: {
-        args: [],
-      },
-    }])
+    assert.deepEqual(formatter.toJSON(), {
+      errors: [{
+        title: 'Invalid value',
+        code: 1026,
+        source: { pointer: 'username' },
+        meta: {
+          args: [],
+        },
+      }],
+    })
   })
 
   test('keep code as undefined when code for rule is missing', (assert) => {
     const formatter = new ErrorFormatter()
     formatter.addError('Invalid value', 'username', 'phone', ['foo'])
 
-    assert.deepEqual(formatter.toJSON() as any, [{
-      title: 'Invalid value',
-      code: undefined,
-      source: { pointer: 'username' },
-      meta: {
-        args: ['foo'],
-      },
-    }])
+    assert.deepEqual(formatter.toJSON() as any, {
+      errors: [{
+        title: 'Invalid value',
+        code: undefined,
+        source: { pointer: 'username' },
+        meta: {
+          args: ['foo'],
+        },
+      }],
+    })
   })
 })
