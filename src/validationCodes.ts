@@ -1,7 +1,7 @@
 /**
  * @relayin/error-handler
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Harminder Virk <harminder.virk@relay.in>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -33,24 +33,23 @@ export const validationCodes = {
   number: 1023,
   object: 1024,
   range: 1025,
-  regex: 1026,
-  required: 1027,
-  requiredIf: 1028,
-  requiredWhen: 1029,
-  requiredWithAll: 1030,
-  requiredWithAny: 1031,
-  requiredWithoutAll: 1032,
-  requiredWithoutAny: 1033,
-  same: 1034,
-  startsWith: 1035,
-  string: 1036,
-  subset: 1037,
-  under: 1038,
-  url: 1039,
-  after: 1040,
-  before: 1041,
-  date: 1042,
-  dateFormat: 1043,
-  beforeOffsetOf: 1044,
-  afterOffsetOf: 1045,
+  required: 1026,
+  requiredIf: 1026,
+  requiredWhen: 1026,
+  requiredWithAll: 1026,
+  requiredWithAny: 1026,
+  requiredWithoutAll: 1026,
+  requiredWithoutAny: 1026,
+  same: 1027,
+  startsWith: 1028,
+  string: 1029,
+  subset: 1030,
+  under: 1031,
+  url: 1032,
+  after: 1033,
+  before: 1034,
+  date: 1035,
+  dateFormat: 1036,
+  beforeOffsetOf: 1037,
+  afterOffsetOf: 1038,
 }

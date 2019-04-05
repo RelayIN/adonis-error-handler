@@ -1,7 +1,7 @@
 /**
  * @relayin/error-handler
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Harminder Virk <harminder.virk@relay.in>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,6 +30,9 @@ export type JSONAPIErrorNode = {
   title: string,
   source: {
     pointer: string,
+  },
+  meta: {
+    args: any[],
   },
 }
 

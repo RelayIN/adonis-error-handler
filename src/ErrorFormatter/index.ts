@@ -1,7 +1,7 @@
 /**
  * @relayin/error-handler
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Harminder Virk <harminder.virk@relay.in>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,12 +19,15 @@ export class ErrorFormatter {
   /**
    * Adds error reported by Indicative
    */
-  public addError (error: Error | string, field: string, rule: string) {
+  public addError (error: Error | string, field: string, rule: string, args: any[]) {
     const message = error instanceof Error ? error.message : error
     this.errors.push({
       title: message,
       code: validationCodes[rule],
       source: { pointer: field },
+      meta: {
+        args,
+      },
     })
   }
 
@@ -32,7 +35,7 @@ export class ErrorFormatter {
    * Returns an array of errors or null if errors length = 0. The `null`
    * output is part of Indicative formatters spec.
    */
-  public toJSON (): null | JSONAPIErrorNode[] {
-    return this.errors.length ? this.errors : null
+  public toJSON (): null | { errors: JSONAPIErrorNode[] } {
+    return this.errors.length ? { errors: this.errors } : null
   }
 }
