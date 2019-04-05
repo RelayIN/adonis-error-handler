@@ -1,3 +1,17 @@
+## [1.0.5](https://github.com/RelayIN/error-handler/compare/1.0.4...1.0.5) (2019-04-05)
+
+
+### Bug Fixes
+
+* **error-formatter:** return jsonapi complaint errors object ([4741da4](https://github.com/RelayIN/error-handler/commit/4741da4))
+
+
+### Features
+
+* **error-formatter:** pass args inside meta object ([48fa54e](https://github.com/RelayIN/error-handler/commit/48fa54e))
+
+
+
 ## [1.0.4](https://github.com/RelayIN/error-handler/compare/1.0.3...1.0.4) (2019-04-05)
 
 
