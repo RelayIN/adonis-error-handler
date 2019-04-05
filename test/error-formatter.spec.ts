@@ -17,7 +17,7 @@ test.group('Error formatter', () => {
 
     assert.deepEqual(formatter.toJSON(), [{
       title: 'Invalid value',
-      code: 100027,
+      code: 1027,
       source: { pointer: 'username' },
     }])
   })
