@@ -31,6 +31,9 @@ export type JSONAPIErrorNode = {
   source: {
     pointer: string,
   },
+  meta: {
+    args: any[],
+  },
 }
 
 export interface ErrorHandlerContract {

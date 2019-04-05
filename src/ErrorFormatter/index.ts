@@ -19,12 +19,15 @@ export class ErrorFormatter {
   /**
    * Adds error reported by Indicative
    */
-  public addError (error: Error | string, field: string, rule: string) {
+  public addError (error: Error | string, field: string, rule: string, args: any[]) {
     const message = error instanceof Error ? error.message : error
     this.errors.push({
       title: message,
       code: validationCodes[rule],
       source: { pointer: field },
+      meta: {
+        args,
+      },
     })
   }
 
