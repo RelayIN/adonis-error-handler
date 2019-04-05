@@ -35,7 +35,7 @@ export class ErrorFormatter {
    * Returns an array of errors or null if errors length = 0. The `null`
    * output is part of Indicative formatters spec.
    */
-  public toJSON (): null | JSONAPIErrorNode[] {
-    return this.errors.length ? this.errors : null
+  public toJSON (): null | { errors: JSONAPIErrorNode[] } {
+    return this.errors.length ? { errors: this.errors } : null
   }
 }
