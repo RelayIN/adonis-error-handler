@@ -52,4 +52,5 @@ export const validationCodes = {
   dateFormat: 1036,
   beforeOffsetOf: 1037,
   afterOffsetOf: 1038,
+  phone: 1039,
 }
