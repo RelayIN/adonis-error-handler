@@ -8,6 +8,7 @@
  */
 
 import { ErrorHandler } from '../src/ErrorHandler'
+const INDIAN_NUMBER_REGEX = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/
 
 export default class ErrorHandlerProvider {
   constructor (public container) {}
@@ -42,8 +43,28 @@ export default class ErrorHandlerProvider {
      * Add formatter to indicative
      */
     try {
-      const { configure } = require('indicative')
+      const { configure, extend, utils } = require('indicative')
+
+      /**
+       * Define custom formatter
+       */
       configure({ formatter: handler.getFormatter() })
+
+      /**
+       * Extend indicative to add `phone` number
+       */
+      extend('phone', {
+        async: false,
+        validate: (data, field, _args, _type, _root, config: any): boolean => {
+          const fieldValue = data[field]
+
+          if (utils.skippable(fieldValue, field, config)) {
+            return true
+          }
+
+          return INDIAN_NUMBER_REGEX.test(fieldValue)
+        },
+      })
     } catch (error) {
       // Indicative isn't installed, so ignore the error
     }
