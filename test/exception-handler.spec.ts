@@ -54,8 +54,10 @@ test.group('ExceptionHandler', () => {
     assert.deepEqual(response._state, {
       code: 500,
       body: {
-        title: 'Your account is not in active state',
-        code: 10001,
+        errors: [{
+          title: 'Your account is not in active state',
+          code: 10001,
+        }],
       },
     })
   })
@@ -96,8 +98,10 @@ test.group('ExceptionHandler', () => {
     assert.deepEqual(response._state, {
       code: 400,
       body: {
-        title: 'Your account is not in active state',
-        code: 10001,
+        errors: [{
+          title: 'Your account is not in active state',
+          code: 10001,
+        }],
       },
     })
   })
@@ -134,8 +138,10 @@ test.group('ExceptionHandler', () => {
     assert.deepEqual(response._state, {
       code: 400,
       body: {
-        title: 'Unable to process request',
-        code: 1000,
+        errors: [{
+          title: 'Unable to process request',
+          code: 1000,
+        }],
       },
     })
   })

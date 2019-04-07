@@ -140,7 +140,9 @@ export class ErrorHandler implements ErrorHandlerContract {
     if (this._config.exceptionCodes[code]) {
       const clientCode = this._config.exceptionCodes[code]
       const clientMessage = this._config.errorCodes[clientCode].message
-      response.status(status).send({ title: clientMessage, code: clientCode })
+      response.status(status).send({
+        errors: [{ title: clientMessage, code: clientCode }],
+      })
       return
     }
 
@@ -159,7 +161,9 @@ export class ErrorHandler implements ErrorHandlerContract {
      * in production
      */
     this._logger.fatal(error)
-    return response.status(status).send({ title: 'Unable to process request', code: 1000 })
+    return response.status(status).send({
+      errors: [{ title: 'Unable to process request', code: 1000 }],
+    })
   }
 
   /**
