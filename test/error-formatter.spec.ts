@@ -29,7 +29,7 @@ test.group('Error formatter', () => {
 
   test('keep code as undefined when code for rule is missing', (assert) => {
     const formatter = new ErrorFormatter()
-    formatter.addError('Invalid value', 'username', 'phone', ['foo'])
+    formatter.addError('Invalid value', 'username', 'pincode', ['foo'])
 
     assert.deepEqual(formatter.toJSON() as any, {
       errors: [{

@@ -10,6 +10,14 @@
 import * as test from 'japa'
 import { ErrorHandler } from '../src/ErrorHandler'
 
+const fakeLogger = {
+  fatal () {},
+}
+
+const request = {
+  request: {},
+}
+
 test.group('ExceptionHandler', () => {
   test('build error object from config', async (assert) => {
     const error = new Error('Invalid account') as NodeJS.ErrnoException
@@ -40,8 +48,8 @@ test.group('ExceptionHandler', () => {
       },
     }
 
-    const handler = new ErrorHandler(config)
-    await handler.handleException(error, { response })
+    const handler = new ErrorHandler(config, fakeLogger)
+    await handler.handleException(error, { request, response })
 
     assert.deepEqual(response._state, {
       code: 500,
@@ -82,8 +90,8 @@ test.group('ExceptionHandler', () => {
       },
     }
 
-    const handler = new ErrorHandler(config)
-    await handler.handleException(error, { response })
+    const handler = new ErrorHandler(config, fakeLogger)
+    await handler.handleException(error, { request, response })
 
     assert.deepEqual(response._state, {
       code: 400,
@@ -120,8 +128,8 @@ test.group('ExceptionHandler', () => {
       },
     }
 
-    const handler = new ErrorHandler(config)
-    await handler.handleException(error, { response })
+    const handler = new ErrorHandler(config, fakeLogger)
+    await handler.handleException(error, { request, response })
 
     assert.deepEqual(response._state, {
       code: 400,
