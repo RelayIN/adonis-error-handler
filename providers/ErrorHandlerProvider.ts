@@ -20,7 +20,8 @@ export default class ErrorHandlerProvider {
   public register () {
     this.container.singleton('Relay/ErrorHandler', () => {
       const Config = this.container.use('Adonis/Src/Config')
-      return new ErrorHandler(Config.get('errorCodes'))
+      const Logger = this.container.use('Adonis/Src/Logger')
+      return new ErrorHandler(Config.get('errorCodes'), Logger)
     })
   }
 
