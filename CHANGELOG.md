@@ -1,3 +1,12 @@
+## [1.0.6](https://github.com/thetutlage/error-handler/compare/1.0.5...1.0.6) (2019-04-07)
+
+
+### Features
+
+* **indicative:** add phone validation rule to indicative ([a0eff7f](https://github.com/thetutlage/error-handler/commit/a0eff7f))
+
+
+
 ## [1.0.5](https://github.com/RelayIN/error-handler/compare/1.0.4...1.0.5) (2019-04-05)
 
 
