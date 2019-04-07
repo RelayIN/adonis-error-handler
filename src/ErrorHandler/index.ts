@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import * as Youch from 'youch'
 import { ErrorsConfig, ErrorHandlerContract } from '../Contracts'
 import { validationCodes } from '../validationCodes'
 import { ErrorFormatter } from '../ErrorFormatter'
@@ -20,7 +21,7 @@ const REQUIRED_MEMBERS = ['errorCodes', 'exceptionCodes', 'codesBucket']
 export class ErrorHandler implements ErrorHandlerContract {
   private _exceptionsRef: { [key: string]: string } = {}
 
-  constructor (private _config: ErrorsConfig) {
+  constructor (private _config: ErrorsConfig, private _logger) {
   }
 
   /**
@@ -127,19 +128,38 @@ export class ErrorHandler implements ErrorHandlerContract {
    * Returns exception handler for handling HTTP exceptions and making
    * consistent API response
    */
-  public async handleException (error, { response }) {
+  public async handleException (error, { request, response }) {
     const code = error.code || 'E_RUNTIME_EXCEPTION'
     const status = error.status || 500
 
-    let clientCode = 1000
-    let clientMessage = 'Unable to process request'
-
+    /**
+     * If exception code is part of defined exception codes, then we
+     * consider it as a handled exception and always format it
+     * as expected
+     */
     if (this._config.exceptionCodes[code]) {
-      clientCode = this._config.exceptionCodes[code]
-      clientMessage = this._config.errorCodes[clientCode].message
+      const clientCode = this._config.exceptionCodes[code]
+      const clientMessage = this._config.errorCodes[clientCode].message
+      response.status(status).send({ title: clientMessage, code: clientCode })
+      return
     }
 
-    response.status(status).send({ title: clientMessage, code: clientCode })
+    /**
+     * If the exception is not handled, then we display a proper HTML
+     * error page only in `development` mode.
+     */
+    if (process.env.NODE_ENV === 'development') {
+      const html = await new Youch(error, request.request).toHTML()
+      response.status(status).send(html)
+      return
+    }
+
+    /**
+     * Fallback to generic messsages in case of unhandled exception
+     * in production
+     */
+    this._logger.fatal(error)
+    return response.status(status).send({ title: 'Unable to process request', code: 1000 })
   }
 
   /**
