@@ -8,7 +8,7 @@
  */
 
 import * as Youch from 'youch'
-import { ErrorsConfig, ErrorHandlerContract } from '../Contracts'
+import { ErrorsConfig, ErrorHandlerContract, JSONAPIErrorNode } from '../Contracts'
 import { validationCodes } from '../validationCodes'
 import { ErrorFormatter } from '../ErrorFormatter'
 
@@ -125,26 +125,34 @@ export class ErrorHandler implements ErrorHandlerContract {
   }
 
   /**
-   * Returns exception handler for handling HTTP exceptions and making
-   * consistent API response
+   * Returns jsonapi spec complaint errors and status for a given
+   * error object
    */
-  public async handleException (error, { request, response }) {
+  public getErrors (error: any): { status: number, errors: JSONAPIErrorNode[] } {
     const code = error.code || 'E_RUNTIME_EXCEPTION'
     const status = error.status || 500
 
-    /**
-     * If exception code is part of defined exception codes, then we
-     * consider it as a handled exception and always format it
-     * as expected
-     */
     if (this._config.exceptionCodes[code]) {
       const clientCode = this._config.exceptionCodes[code]
       const clientMessage = this._config.errorCodes[clientCode].message
-      response.status(status).send({
+      return {
+        status,
         errors: [{ title: clientMessage, code: clientCode }],
-      })
-      return
+      }
     }
+
+    return {
+      status,
+      errors: [{ title: 'Unable to process request', code: 1000 }],
+    }
+  }
+
+  /**
+   * Returns exception handler for handling HTTP exceptions and making
+   * consistent API response
+   */
+  public async handleException (error: any, { request, response }) {
+    const { status, errors } = this.getErrors(error)
 
     /**
      * If the exception is not handled, then we display a proper HTML
@@ -157,13 +165,13 @@ export class ErrorHandler implements ErrorHandlerContract {
     }
 
     /**
-     * Fallback to generic messsages in case of unhandled exception
-     * in production
+     * Log server errors
      */
-    this._logger.fatal(error)
-    return response.status(status).send({
-      errors: [{ title: 'Unable to process request', code: 1000 }],
-    })
+    if (status === 500) {
+      this._logger.fatal(error)
+    }
+
+    return response.status(status).send({ errors })
   }
 
   /**
