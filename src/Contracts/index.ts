@@ -28,10 +28,10 @@ export type ErrorsConfig = {
 export type JSONAPIErrorNode = {
   code: number,
   title: string,
-  source: {
+  source?: {
     pointer: string,
   },
-  meta: {
+  meta?: {
     args: any[],
   },
 }
@@ -39,5 +39,6 @@ export type JSONAPIErrorNode = {
 export interface ErrorHandlerContract {
   parse (): void,
   exceptions <T extends keyof any> (): { [K in T]: K },
-  handleException (error, { response }): Promise<void>,
+  getErrors (error: any): { status: number, errors: JSONAPIErrorNode[] },
+  handleException (error: any, { response }): Promise<void>,
 }

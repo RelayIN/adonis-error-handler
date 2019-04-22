@@ -1,3 +1,18 @@
+## [1.0.8](https://github.com/thetutlage/error-handler/compare/1.0.5...1.0.8) (2019-04-22)
+
+
+### Bug Fixes
+
+* **exception:** return jsonapi formatted error from exception handler ([b401e97](https://github.com/thetutlage/error-handler/commit/b401e97))
+
+
+### Features
+
+* **error-handler:** add support for returning errors in json format ([72b23ae](https://github.com/thetutlage/error-handler/commit/72b23ae))
+* **indicative:** add phone validation rule to indicative ([a0eff7f](https://github.com/thetutlage/error-handler/commit/a0eff7f))
+
+
+
 ## [1.0.7](https://github.com/thetutlage/error-handler/compare/1.0.5...1.0.7) (2019-04-07)
 
 
