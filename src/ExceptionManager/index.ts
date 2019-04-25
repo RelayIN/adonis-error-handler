@@ -7,10 +7,8 @@
  * file that was distributed with this source code.
  */
 
-import * as Youch from 'youch'
-import { ErrorsConfig, ErrorHandlerContract, JSONAPIErrorNode } from '../Contracts'
+import { ErrorsConfig, ExceptionManagerContract, JSONAPIErrorNode } from '../Contracts'
 import { validationCodes } from '../validationCodes'
-import { ErrorFormatter } from '../ErrorFormatter'
 
 /**
  * All of the required members must be exported from `config/errorCodes.ts`
@@ -18,10 +16,10 @@ import { ErrorFormatter } from '../ErrorFormatter'
  */
 const REQUIRED_MEMBERS = ['errorCodes', 'exceptionCodes', 'codesBucket']
 
-export class ErrorHandler implements ErrorHandlerContract {
+export class ExceptionManager implements ExceptionManagerContract {
   private _exceptionsRef: { [key: string]: string } = {}
 
-  constructor (private _config: ErrorsConfig, private _logger) {
+  constructor (private _config: ErrorsConfig) {
   }
 
   /**
@@ -117,18 +115,10 @@ export class ErrorHandler implements ErrorHandlerContract {
   }
 
   /**
-   * Returns [[ErrorFormatter]] class to be passed to indicative
-   * for formatting errors
-   */
-  public getFormatter (): { new(): ErrorFormatter } {
-    return ErrorFormatter
-  }
-
-  /**
    * Returns jsonapi spec complaint errors and status for a given
    * error object
    */
-  public getErrors (error: any): { status: number, errors: JSONAPIErrorNode[] } {
+  public toResponse (error: any): { status: number, errors: JSONAPIErrorNode[] } {
     const code = error.code || 'E_RUNTIME_EXCEPTION'
     const status = error.status || 500
 
@@ -148,36 +138,9 @@ export class ErrorHandler implements ErrorHandlerContract {
   }
 
   /**
-   * Returns exception handler for handling HTTP exceptions and making
-   * consistent API response
-   */
-  public async handleException (error: any, { request, response }) {
-    const { status, errors } = this.getErrors(error)
-
-    /**
-     * If the exception is not handled, then we display a proper HTML
-     * error page only in `development` mode.
-     */
-    if (process.env.NODE_ENV === 'development') {
-      const html = await new Youch(error, request.request).toHTML()
-      response.status(status).send(html)
-      return
-    }
-
-    /**
-     * Log server errors
-     */
-    if (status === 500) {
-      this._logger.fatal(error)
-    }
-
-    return response.status(status).send({ errors })
-  }
-
-  /**
    * Returns reference to exceptions list
    */
-  public exceptions <T extends keyof any> (): { [K in T]: K } {
+  public refs <T extends keyof any> (): { [K in T]: K } {
     return this._exceptionsRef as { [K in T]: K }
   }
 }

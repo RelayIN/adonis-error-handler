@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/thetutlage/error-handler/compare/1.0.8...2.0.0) (2019-04-25)
+
+
+### Code Refactoring
+
+* remove ErrorHandler in favor of ExceptionManager ([0a71864](https://github.com/thetutlage/error-handler/commit/0a71864))
+
+
+### BREAKING CHANGES
+
+* ExceptionManager exposes a more transparent API to convert
+exception codes to client response and error handing is done using the
+app error handler
+
+
+
 ## [1.0.8](https://github.com/thetutlage/error-handler/compare/1.0.5...1.0.8) (2019-04-22)
 
 
