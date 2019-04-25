@@ -14,19 +14,19 @@ export default class ErrorHandlerProvider {
   constructor (protected container) {}
 
   /**
-   * Register `Relay/ErrorHandler` to the container. We don't
+   * Register `Relay/ExceptionManager` to the container. We don't
    * need a new instance for handler everytime, so binding
    * a singleton is the way to go
    */
   public register () {
-    this.container.singleton('Relay/ErrorHandler', () => {
+    this.container.singleton('Relay/ExceptionManager', () => {
       const Config = this.container.use('Adonis/Src/Config')
       return new ExceptionManager(Config.get('errorCodes'))
     })
   }
 
   public async boot () {
-    const handler = this.container.use('Relay/ErrorHandler')
+    const handler = this.container.use('Relay/ExceptionManager')
 
     /**
      * Parse config and report errors (if any)
