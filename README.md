@@ -90,6 +90,19 @@ export const providers = [
 ]
 ```
 
+Finally, within the app exception handler you can use `Relay/ExceptionManager` to convert Exceptions to api response objects.
+
+```ts
+const ExceptionManager = use<Relay.ExceptionManager>('Relay/ExceptionManager')
+
+class ExceptionHandler {
+  async handle (error, { response }: AdonisJs.Context) {
+    const { status, errors } = ExceptionManager.toResponse(error)
+    response.status(status).send({ errors })
+  }
+}
+```
+
 That's all from the usage point of view. The validation errors gets a unique set of error codes, which are shared by all micro service and you won't have to do much on that front.
 
 ## Defining codes for exceptions
