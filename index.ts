@@ -7,4 +7,4 @@
  * file that was distributed with this source code.
  */
 
-export { ErrorsConfig, JSONAPIErrorNode, ErrorHandlerContract } from './src/Contracts'
+export { ErrorsConfig, JSONAPIErrorNode, ExceptionManagerContract } from './src/Contracts'
