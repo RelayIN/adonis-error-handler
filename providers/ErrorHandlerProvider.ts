@@ -7,10 +7,11 @@
  * file that was distributed with this source code.
  */
 
-import { ErrorHandler } from '../src/ErrorHandler'
+import { ExceptionManager } from '../src/ExceptionManager'
+import { ErrorFormatter } from '../src/ErrorFormatter'
 
 export default class ErrorHandlerProvider {
-  constructor (public container) {}
+  constructor (protected container) {}
 
   /**
    * Register `Relay/ErrorHandler` to the container. We don't
@@ -20,19 +21,12 @@ export default class ErrorHandlerProvider {
   public register () {
     this.container.singleton('Relay/ErrorHandler', () => {
       const Config = this.container.use('Adonis/Src/Config')
-      const Logger = this.container.use('Adonis/Src/Logger')
-      return new ErrorHandler(Config.get('errorCodes'), Logger)
+      return new ExceptionManager(Config.get('errorCodes'))
     })
   }
 
   public async boot () {
     const handler = this.container.use('Relay/ErrorHandler')
-    const Server = this.container.use('Adonis/Src/Server')
-
-    /**
-     * Handle exceptions
-     */
-    Server.onError(handler.handleException.bind(handler))
 
     /**
      * Parse config and report errors (if any)
@@ -48,7 +42,7 @@ export default class ErrorHandlerProvider {
       /**
        * Define custom formatter
        */
-      configure({ formatter: handler.getFormatter() })
+      configure({ formatter: ErrorFormatter })
     } catch (error) {
       // Indicative isn't installed, so ignore the error
     }

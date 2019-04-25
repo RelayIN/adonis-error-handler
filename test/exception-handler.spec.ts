@@ -8,15 +8,7 @@
  */
 
 import * as test from 'japa'
-import { ErrorHandler } from '../src/ErrorHandler'
-
-const fakeLogger = {
-  fatal () {},
-}
-
-const request = {
-  request: {},
-}
+import { ExceptionManager } from '../src/ExceptionManager'
 
 test.group('ExceptionHandler', () => {
   test('build error object from config', async (assert) => {
@@ -37,28 +29,13 @@ test.group('ExceptionHandler', () => {
       codesBucket: 10000,
     }
 
-    const response = {
-      _state: {},
-      status (code) {
-        this._state.code = code
-        return this
-      },
-      send (body) {
-        this._state.body = body
-      },
-    }
-
-    const handler = new ErrorHandler(config, fakeLogger)
-    await handler.handleException(error, { request, response })
-
-    assert.deepEqual(response._state, {
-      code: 500,
-      body: {
-        errors: [{
-          title: 'Your account is not in active state',
-          code: 10001,
-        }],
-      },
+    const handler = new ExceptionManager(config)
+    assert.deepEqual(handler.toResponse(error), {
+      status: 500,
+      errors: [{
+        title: 'Your account is not in active state',
+        code: 10001,
+      }],
     })
   })
 
@@ -81,28 +58,14 @@ test.group('ExceptionHandler', () => {
       codesBucket: 10000,
     }
 
-    const response = {
-      _state: {},
-      status (code) {
-        this._state.code = code
-        return this
-      },
-      send (body) {
-        this._state.body = body
-      },
-    }
+    const handler = new ExceptionManager(config)
 
-    const handler = new ErrorHandler(config, fakeLogger)
-    await handler.handleException(error, { request, response })
-
-    assert.deepEqual(response._state, {
-      code: 400,
-      body: {
-        errors: [{
-          title: 'Your account is not in active state',
-          code: 10001,
-        }],
-      },
+    assert.deepEqual(handler.toResponse(error), {
+      status: 400,
+      errors: [{
+        title: 'Your account is not in active state',
+        code: 10001,
+      }],
     })
   })
 
@@ -121,28 +84,13 @@ test.group('ExceptionHandler', () => {
       codesBucket: 10000,
     }
 
-    const response = {
-      _state: {},
-      status (code) {
-        this._state.code = code
-        return this
-      },
-      send (body) {
-        this._state.body = body
-      },
-    }
-
-    const handler = new ErrorHandler(config, fakeLogger)
-    await handler.handleException(error, { request, response })
-
-    assert.deepEqual(response._state, {
-      code: 400,
-      body: {
-        errors: [{
-          title: 'Unable to process request',
-          code: 1000,
-        }],
-      },
+    const handler = new ExceptionManager(config)
+    assert.deepEqual(handler.toResponse(error), {
+      status: 400,
+      errors: [{
+        title: 'Unable to process request',
+        code: 1000,
+      }],
     })
   })
 })

@@ -8,9 +8,7 @@
  */
 
 import * as test from 'japa'
-import { ErrorHandler } from '../src/ErrorHandler'
-
-const fakeLogger = {}
+import { ExceptionManager } from '../src/ExceptionManager'
 
 test.group('Exception Parser', () => {
   test('raise error when errorCode referenced by an exception doesn\'t exists', (assert) => {
@@ -22,7 +20,7 @@ test.group('Exception Parser', () => {
       codesBucket: 1000,
     }
 
-    const handler = new ErrorHandler(config, fakeLogger)
+    const handler = new ExceptionManager(config)
     const fn = () => handler.parse()
     assert.throw(fn, 'Error code 10001 used by ERR_MISSING_FILE doesn\'t exists in list of errorCodes')
   })
@@ -39,7 +37,7 @@ test.group('Exception Parser', () => {
       codesBucket: 1000,
     }
 
-    const handler = new ErrorHandler(config, fakeLogger)
+    const handler = new ExceptionManager(config)
     const fn = () => handler.parse()
     assert.throw(fn, 'Error code 11 must be over codesBucket range of 1000')
   })
@@ -56,7 +54,7 @@ test.group('Exception Parser', () => {
       codesBucket: 1000,
     }
 
-    const handler = new ErrorHandler(config, fakeLogger)
+    const handler = new ExceptionManager(config)
     const fn = () => handler.parse()
     assert.throw(fn, 'Error code 2100 must be under codesBucket range of 2000')
   })
@@ -71,7 +69,7 @@ test.group('Exception Parser', () => {
       codesBucket: 1000,
     }
 
-    const handler = new ErrorHandler(config as any, fakeLogger)
+    const handler = new ExceptionManager(config as any)
     const fn = () => handler.parse()
     assert.throw(fn, 'Each error code inside config/errorCodes.ts must have a message')
   })
@@ -88,7 +86,7 @@ test.group('Exception Parser', () => {
       codesBucket: 1000,
     }
 
-    const handler = new ErrorHandler(config, fakeLogger)
+    const handler = new ExceptionManager(config)
     const fn = () => handler.parse()
     assert.throw(fn, 'Error code 1001 used by required rule doesn\'t exists in list of errorCodes')
   })
