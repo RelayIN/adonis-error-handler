@@ -28,20 +28,20 @@
   "author": "relay.in",
   "license": "MIT",
   "devDependencies": {
-    "@adonisjs/mrm-preset": "^1.0.20",
-    "@types/node": "^11.13.0",
-    "commitizen": "^3.0.7",
+    "@adonisjs/mrm-preset": "^2.0.3",
+    "@types/node": "^12.6.1",
+    "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
-    "del-cli": "^1.1.0",
+    "del-cli": "^2.0.0",
     "doctoc": "^1.4.0",
-    "japa": "^2.0.8",
-    "mrm": "^1.2.1",
+    "husky": "^3.0.0",
+    "japa": "^2.0.10",
+    "mrm": "^1.2.2",
     "pkg-ok": "^2.3.1",
-    "ts-node": "^8.0.3",
-    "tslint": "^5.15.0",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.4.1",
-    "yorkie": "^2.0.0"
+    "typescript": "^3.5.3"
   },
   "nyc": {
     "exclude": [
@@ -56,9 +56,11 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "gitHooks": {
-    "commit-msg": "node ./node_modules/@adonisjs/mrm-preset/validateCommit/conventional/validate.js",
-    "pre-commit": "doctoc README.md --title='## Table of contents' && git add README.md"
-  },
-  "dependencies": {}
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "doctoc README.md --title='## Table of contents' && git add README.md",
+      "commit-msg": "node ./node_modules/@adonisjs/mrm-preset/validateCommit/conventional/validate.js"
+    }
+  }
 }
