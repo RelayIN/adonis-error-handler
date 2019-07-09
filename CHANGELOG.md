@@ -1,3 +1,7 @@
+## [2.0.1](https://github.com/thetutlage/error-handler/compare/2.0.0...2.0.1) (2019-07-09)
+
+
+
 # [2.0.0](https://github.com/thetutlage/error-handler/compare/1.0.8...2.0.0) (2019-04-25)
 
 
