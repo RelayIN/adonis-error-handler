@@ -37,7 +37,7 @@ export default class ErrorHandlerProvider {
      * Add formatter to indicative
      */
     try {
-      const { configure } = require('indicative')
+      const { configure } = require('indicative/validator')
 
       /**
        * Define custom formatter
