@@ -1,3 +1,12 @@
+## [2.0.2](https://github.com/thetutlage/error-handler/compare/v2.0.1...v2.0.2) (2019-07-10)
+
+
+### Bug Fixes
+
+* pull configure from indicative/validator ([60b020c](https://github.com/thetutlage/error-handler/commit/60b020c))
+
+
+
 ## [2.0.1](https://github.com/thetutlage/error-handler/compare/2.0.0...2.0.1) (2019-07-09)
 
 
